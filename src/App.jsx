@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Weather from './components/Weather'
+import NavBar from './components/NavBar'
 
 function App() {
   const [city, setCity] = useState('merida')
@@ -17,7 +18,7 @@ function App() {
 
   function handlerWeatherCity(event) {
     event.preventDefault()
-    const newCity = event.target.childNodes[0].childNodes[0].value
+    const newCity = event.target.childNodes[0].value
     setCity(newCity)
   }
 
@@ -26,7 +27,10 @@ function App() {
   }, [city])
 
   return (
-    <Weather data={weather} handlerWeatherCity={handlerWeatherCity} />
+    <>
+      <NavBar handlerWeatherCity={handlerWeatherCity} />
+      <Weather data={weather} />
+    </>
   );
 }
 

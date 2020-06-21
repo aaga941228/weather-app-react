@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Weather = ({ data, handlerWeatherCity }) => {
+const Weather = ({ data }) => {
     console.log(data)
     const { clouds, coord, main, name, sys, weather, wind } = data
     return (
@@ -18,28 +18,6 @@ const Weather = ({ data, handlerWeatherCity }) => {
                                 <li id='weather-temp' className='list-group-item'>Feels like {main && main.feels_like}</li>
                                 <li id='weather-wind' className='list-group-item'>Speed {wind && wind.speed} km/h</li>
                             </ul>
-                        </div>
-                    </div>
-
-                    <div className='card mt-4'>
-                        <div className='card-body'>
-                            <form id='w-form' onSubmit={handlerWeatherCity}>
-                                <div className='form-group'>
-                                    <input
-                                        type='text'
-                                        id='city'
-                                        name='city'
-                                        className='form-control'
-                                        placeholder='City'
-                                        autoFocus
-                                    />
-                                </div>
-                                <div className='form-group'>
-                                    <button className='btn btn-dark btn-block' id='w-change-btn' type='sumit'>
-                                        Choose a city
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
