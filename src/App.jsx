@@ -3,6 +3,7 @@ import axios from 'axios'
 import WeatherToday from './components/Weather/index'
 import WeatherNextDays from './components/WeatherNextDays/index'
 import NavBar from './components/NavBar/index'
+import Footer from './components/Footer/index'
 
 function App() {
   const [city, setCity] = useState('merida')
@@ -49,6 +50,7 @@ function App() {
       <NavBar handlerWeatherCity={handlerWeatherCity} />
       <WeatherToday data={weather} />
       <WeatherNextDays data={fiveDaysWeather} />
+      <Footer />
     </>
   );
 }
