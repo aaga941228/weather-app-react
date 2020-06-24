@@ -3,8 +3,6 @@ import axios from 'axios'
 import WeatherToday from './components/Weather/index'
 import WeatherNextDays from './components/WeatherNextDays/index'
 import NavBar from './components/NavBar/index'
-//import currentWeatherMocks from './mocks/currentWeather'
-//import fiveDaysWeatherMocks from './mocks/fiveDaysWeather'
 
 function App() {
   const [city, setCity] = useState('merida')
@@ -19,8 +17,6 @@ function App() {
       const response = await axios.get(`${apiURL}/weather${query}`)
       const { data } = response
       setWeather(data)
-      //const data = await currentWeatherMocks()
-      //setWeather(data)
     } catch (err) {
       console.log(err)
     }
@@ -31,9 +27,7 @@ function App() {
       const query = `?q=${city}&appid=${apiKey}&units=metric`
       const response = await axios.get(`${apiURL}/forecast${query}`)
       const { data } = response
-      setWeather(data)
-      //const data = await fiveDaysWeatherMocks()
-      //setFiveDaysWeather(data)
+      setFiveDaysWeather(data)
     } catch (err) {
       console.log(err)
     }

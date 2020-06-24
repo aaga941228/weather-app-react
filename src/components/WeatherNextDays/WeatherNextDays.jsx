@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import splitDays from '../../utils/splitDays'
 import { convertToDate, convertToTime } from '../../utils/timeConverter'
+import Loading from '../Loading/index'
 
 const WeatherNextDays = ({ data }) => {
-  console.log(data)
   const { list } = data
   const [weatherByDate, setWeatherByDate] = useState([])
+  const isReady = () => !!weatherByDate
 
   useEffect(() => {
     const data = list && splitDays(list)
@@ -16,11 +17,11 @@ const WeatherNextDays = ({ data }) => {
     <div className="container my-3">
       <div className="row justify-content-center">
         <h2>Next days</h2>
-        {weatherByDate && weatherByDate.map(element => (
+        {isReady() ? (weatherByDate.map(element => (
           <div className="col-12 my-2" key={element[0].dt}>
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title display-4">{convertToDate(element[0].dt)}</h5>
+                <h5 className="card-title">{convertToDate(element[0].dt)}</h5>
                 <hr />
                 {element.map(element => (
                   <div key={element.dt} className="">
@@ -35,7 +36,7 @@ const WeatherNextDays = ({ data }) => {
               </div>
             </div>
           </div>
-        ))}
+        ))) : <Loading />}
       </div>
     </div>
   )
