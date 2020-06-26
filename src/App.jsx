@@ -9,13 +9,13 @@ function App() {
   const [city, setCity] = useState('merida')
   const [weather, setWeather] = useState({})
   const [fiveDaysWeather, setFiveDaysWeather] = useState({})
-  const [apiKey, setApiKey] = useState('d24d014f7ad8373112e8cca15fef2894')
-  const [apiURL, setApiURL] = useState(`https://api.openweathermap.org/data/2.5`)
+  const API_KEY = process.env.REACT_APP_API_KEY
+  const API_URL = process.env.REACT_APP_API_URL
 
   async function getWeather() {
     try {
-      const query = `?q=${city}&appid=${apiKey}&units=metric`
-      const response = await axios.get(`${apiURL}/weather${query}`)
+      const query = `?q=${city}&appid=${API_KEY}&units=metric`
+      const response = await axios.get(`${API_URL}/weather${query}`)
       const { data } = response
       setWeather(data)
     } catch (err) {
@@ -25,8 +25,8 @@ function App() {
 
   async function getWeatherFiveDays() {
     try {
-      const query = `?q=${city}&appid=${apiKey}&units=metric`
-      const response = await axios.get(`${apiURL}/forecast${query}`)
+      const query = `?q=${city}&appid=${API_KEY}&units=metric`
+      const response = await axios.get(`${API_URL}/forecast${query}`)
       const { data } = response
       setFiveDaysWeather(data)
     } catch (err) {
