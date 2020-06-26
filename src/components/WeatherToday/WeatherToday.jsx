@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { convertToTime, convertFullToDate } from '../../utils/timeConverter'
 import color from '../../utils/colors'
+import './styles.css'
 
 const WeatherToday = ({ data }) => {
     const [bgColor, setBgColor] = useState('#6c757d')
@@ -25,11 +26,7 @@ const WeatherToday = ({ data }) => {
                                 </div>
                                 <div className='col-md-8'>
                                     <div className='d-flex align-items-center'>
-                                        <picture>
-                                            <source media="(min-width:768px)" srcSet={`http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`} alt='weather icon' />
-                                            <source media="(min-width:300px)" srcSet={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt='weather icon' />
-                                            <img src={`http://openweathermap.org/img/wn/${weather[0].icon}.png`} alt='weather icon' />
-                                        </picture>
+                                        <img className="logo" src={`http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`} alt='weather icon' />
                                         <div>
                                             <p className='m-2'>{weather[0].main}, {weather[0].description}</p>
                                             <p className='m-2'>Wind speed {wind.speed} m/s</p>
