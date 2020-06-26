@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import WeatherToday from './components/WeatherToday/index'
-import WeatherNextDays from './components/WeatherNextDays/index'
-import NavBar from './components/NavBar/index'
-import Footer from './components/Footer/index'
+import WeatherNextDays from './components/WeatherNextDays/'
+import NavBar from './components/NavBar/'
+import Footer from './components/Footer/'
+import Error from './components/CityNotFound/'
 
 function App() {
   const [city, setCity] = useState('merida')
   const [weather, setWeather] = useState({})
   const [fiveDaysWeather, setFiveDaysWeather] = useState({})
+  const [error, setError] = useState(false)
   const API_KEY = process.env.REACT_APP_API_KEY
   const API_URL = process.env.REACT_APP_API_URL
 
@@ -18,8 +20,8 @@ function App() {
       const response = await axios.get(`${API_URL}/weather${query}`)
       const { data } = response
       setWeather(data)
-    } catch (err) {
-      console.log(err)
+    } catch {
+      setError(true)
     }
   }
 
@@ -29,8 +31,8 @@ function App() {
       const response = await axios.get(`${API_URL}/forecast${query}`)
       const { data } = response
       setFiveDaysWeather(data)
-    } catch (err) {
-      console.log(err)
+    } catch {
+      setError(true)
     }
   }
 
@@ -43,13 +45,21 @@ function App() {
   useEffect(() => {
     getWeather()
     getWeatherFiveDays()
+    setError(false)
   }, [city])
 
   return (
     <>
       <NavBar handlerWeatherCity={handlerWeatherCity} />
-      <WeatherToday data={weather} />
-      <WeatherNextDays data={fiveDaysWeather} />
+      {
+        error
+          ? <Error />
+          : (
+            <>
+              <WeatherToday data={weather} />
+              <WeatherNextDays data={fiveDaysWeather} />
+            </>
+          )}
       <Footer />
     </>
   );
