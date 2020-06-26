@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import WeatherToday from './components/Weather/index'
+import WeatherToday from './components/WeatherToday/index'
 import WeatherNextDays from './components/WeatherNextDays/index'
 import NavBar from './components/NavBar/index'
 import Footer from './components/Footer/index'

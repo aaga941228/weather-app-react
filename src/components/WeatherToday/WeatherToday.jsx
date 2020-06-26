@@ -3,27 +3,17 @@ import { convertToTime, convertFullToDate } from '../../utils/timeConverter'
 import color from '../../utils/colors'
 
 const WeatherToday = ({ data }) => {
-    const isSmallDevice = () => window.innerWidth < 768
-    const [size, setSize] = useState(isSmallDevice() ? '2x' : '4x')
     const [bgColor, setBgColor] = useState('#6c757d')
     const { main, name, weather, sys, dt, wind } = data
-    const isReady = () => !!main
 
     useEffect(() => {
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                setSize('4x')
-            } else {
-                setSize('2x')
-            }
-        })
         main && setBgColor(color(main.temp))
-    }, [data])
+    }, [main])
 
     return (
         <>
             {
-                isReady() && (
+                !!main && (
                     <main className='text-light' style={{ backgroundColor: bgColor }}>
                         <div className='container'>
                             <div className='row pt-3'>
@@ -35,7 +25,11 @@ const WeatherToday = ({ data }) => {
                                 </div>
                                 <div className='col-md-8'>
                                     <div className='d-flex align-items-center'>
-                                        {weather && <img src={`http://openweathermap.org/img/wn/${weather[0].icon}@${size}.png`} alt='weather icon' />}
+                                        <picture>
+                                            <source media="(min-width:768px)" srcSet={`http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`} alt='weather icon' />
+                                            <source media="(min-width:300px)" srcSet={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt='weather icon' />
+                                            <img src={`http://openweathermap.org/img/wn/${weather[0].icon}.png`} alt='weather icon' />
+                                        </picture>
                                         <div>
                                             <p className='m-2'>{weather[0].main}, {weather[0].description}</p>
                                             <p className='m-2'>Wind speed {wind.speed} m/s</p>
